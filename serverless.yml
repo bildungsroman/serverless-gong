@@ -5,7 +5,7 @@ provider:
   runtime: nodejs8.10
 functions:
   handleGong:
-    handler: index.handler
+    handler: handler.gongHandler
     description:
       Fn::Sub:
         - 'Stackery Stack #{StackeryStackTagName} Environment #{StackeryEnvironmentTagName} Function #{ResourceName}'
