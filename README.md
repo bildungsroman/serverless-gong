@@ -2,6 +2,8 @@
 
 A serverless gong with GitHub and Slack webhooks - made for the [No Server November Challenge](https://serverless.com/blog/no-server-november-challenge/).
 
+When a selected repository in GitHub has a release event, a chosen Slack channel is messaged with a gong!
+
 ## Links
 
 * Read the [Serverless Webhooks Tutorial](https://docs.stackery.io/docs/tutorials/serverless-webhooks/) to get started
