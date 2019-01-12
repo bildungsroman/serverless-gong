@@ -1,4 +1,4 @@
-# The Serverless Gong! 🔔
+# The Serverless Gong!
 
 A serverless gong with GitHub and Slack webhooks - made for the [No Server November Challenge](https://serverless.com/blog/no-server-november-challenge/).
 
