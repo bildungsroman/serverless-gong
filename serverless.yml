@@ -3,9 +3,18 @@ frameworkVersion: '>=1.4.0 <2.0.0'
 provider:
   name: aws
   runtime: nodejs8.10
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - xray:PutTraceSegments
+        - xray:PutTelemetryRecords
+        - xray:GetSamplingRules
+        - xray:GetSamplingTargets
+        - xray:GetSamplingStatisticSummaries
+      Resource: '*'
 functions:
   handleGong:
-    handler: handler.gongHandler
+    handler: index.handler
     description:
       Fn::Sub:
         - 'Stackery Stack #{StackeryStackTagName} Environment #{StackeryEnvironmentTagName} Function #{ResourceName}'
@@ -19,6 +28,8 @@ functions:
         Ref: StackeryEnvConfiggithubSecretAsString
       SLACK_WEBHOOK_URL:
         Ref: StackeryEnvConfigslackWebhookURLAsString
+    runtime: nodejs12.x
+    timeout: 30
 resources:
   Parameters:
     StackeryStackTagName:
@@ -31,12 +42,12 @@ resources:
       Default: dev
     StackeryEnvConfiggithubSecretAsString:
       Type: AWS::SSM::Parameter::Value<String>
-      Default: /Stackery/Environments/<StackeryEnvId>/Config/githubSecret
+      Default: /<EnvironmentName>/githubSecret
     StackeryEnvConfigslackWebhookURLAsString:
       Type: AWS::SSM::Parameter::Value<String>
-      Default: /Stackery/Environments/<StackeryEnvId>/Config/slackWebhookURL
+      Default: /<EnvironmentName>/slackWebhookURL
   Metadata:
-    StackeryEnvConfigParameters:
+    EnvConfigParameters:
       StackeryEnvConfiggithubSecretAsString: githubSecret
       StackeryEnvConfigslackWebhookURLAsString: slackWebhookURL
 plugins:
